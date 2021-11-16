@@ -1,0 +1,166 @@
+<head>
+<title>School Setup</title>
+<style>
+.container {
+
+
+ text-align: center;
+}
+
+body{
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+h2 {
+    text-decoration: underline;
+    color: black;
+}
+
+textarea {
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 2rem;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.container span {
+    flex: 1 0 25%;
+    width: 400px;
+}
+
+.container p {
+    font-size: 1.5rem;
+}
+
+.container span p {
+    cursor: pointer;
+}
+
+.clock-area {
+    float: left;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
+<script src='js/index.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body onload="setup();">
+    <div class="clock-area">
+        <iframe src="https://free.timeanddate.com/clock/i82g6i00/n867/fn6/fs24/fc9ff/tc000/ftb/bas2/bat1/bacfff/pa8/tt0/tw1/tm1/th2/ta1/tb4" frameborder="0" width="231" height="75"></iframe>
+    </div>
+    <div class="container">
+        <input type="button" value="First Period" onclick="firstPeriod();" style="background-color: #660d03" />
+        <input type="button" value="Math Homework" onclick="mathhomework();" style="background-color:#850587" />
+        <input type="button" value="Study Time!!" onclick="openTabs();"  style="background-color:rebeccapurple"/>
+        <input type="button" value="Fun times" onclick="testing();" style="background-color:#a10063" />
+        <input type="button" value="Bell Schedule" onclick="bellSchedule();" style="background-color:#42022a" />
+    </div>
+    <div class="container">
+        <h2>Homework</h2>
+    </div>
+    <div class="container">
+        <span>
+            <p style="color:#080270" onclick="window.open('https://ocps.instructure.com/courses/1590282', '_blank')">APUSH</p>
+            <textarea id="apush" cols="50" rows="15"></textarea>
+        </span>
+
+        <span>
+            <p style= color:darkred onclick="window.open('https://ocps.instructure.com/courses/1444522', '_blank')">AP Lang</p>
+            <textarea id="aplang" cols="50" rows="15"></textarea>
+        </span>
+
+        <span>
+            <p style=color:#165278 onclick="window.open('https://ocps.instructure.com/courses/1584597', '_blank')">Marine Science</p>
+            <textarea id="marsci" cols="50" rows="15"></textarea>
+        </span>
+
+        <span>
+        <p style="color:black" onclick="window.open('https://ocps.instructure.com/courses/1445166', '_blank')">AP Calc</p>
+        <textarea id="apcalc" cols="80" rows="15"></textarea>
+        </span>
+
+        <span>
+            <p style="color:#270573" onclick="window.open('https://ocps.instructure.com/courses/1443016', '_blank')"> Theatre</p>
+            <textarea id="theatre" cols="80" rows="15"></textarea>
+        </span>
+    </div>
+
+    <!-- The Modal -->
+    <div id="bellScheduleModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="bellSchedule" style="width: 800px; height: 800px;" src="https://p15cdn4static.sharpschool.com/UserFiles/Servers/Server_66635/File/DPHS%20Bell%20Schedule%202017-2018.pdf"></iframe>
+        </div>
+    
+  </div>
+</body>
+
