@@ -2,6 +2,7 @@ let inverted = false;
 let lofi = 'https://www.youtube.com/channel/UC5CRP-6oxYenIgBj17CkBZg/live';
 let canvas = 'https://ocps.instructure.com/?login_success=1';
 let drive = 'https://drive.google.com/drive/u/1/my-drive';
+let socket = null;
 
 function disappear() {
     var x = document.getElementById("click-btn");
@@ -67,10 +68,12 @@ function bellSchedule() {
 function saveText(varname) {
     let text = document.getElementById(varname).value;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", '/update_note/' + varname + '?content=' + text, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send();
+    socket.emit('note-update', {
+        data: {
+            'name': varname,
+            'content': text
+        }
+    });
 }
 
 function setup() {
@@ -83,8 +86,6 @@ function setup() {
         
         // Load notes
         $.get('/get_note/' + areaname, function(responseText) {
-            console.log('RESPONSE: ' + responseText);
-        
             document.getElementById(areaname).value = responseText;        
         });
     }
@@ -110,3 +111,18 @@ function setup() {
         }
     }
 }
+
+// Sockets
+socket = io({transports: ['websocket']});
+// socket.on('connect', function() {});
+
+socket.on('broadcast-notes',function(data){
+    
+    for (const [name, content] of Object.entries(data)) {
+        document.getElementById(name).value = content;
+    }
+});
+
+// $.getScript("my_lovely_script.js", function() {
+//     alert("Script loaded but not necessarily executed.");
+//  });
