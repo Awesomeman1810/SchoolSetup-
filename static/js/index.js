@@ -66,21 +66,27 @@ function bellSchedule() {
 
 function saveText(varname) {
     let text = document.getElementById(varname).value;
-    localStorage.setItem(varname, text);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/update_note/' + varname + '?content=' + text, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
 }
-
-
-
 
 function setup() {
     let textareas = ['apush', 'aplang', 'marsci', 'apcalc', 'theatre'];
 
     for (let i = 0; i < textareas.length; i++) {
-        const areaname = textareas[i];
+        const areaname = textareas[i];    
+
         document.getElementById(areaname).addEventListener("input", (event) => saveText(areaname));
         
         // Load notes
-        document.getElementById(areaname).value = localStorage.getItem(areaname);
+        $.get('/get_note/' + areaname, function(responseText) {
+            console.log('RESPONSE: ' + responseText);
+        
+            document.getElementById(areaname).value = responseText;        
+        });
     }
 
     // Get the modal
