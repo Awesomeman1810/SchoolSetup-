@@ -68,11 +68,13 @@ function bellSchedule() {
 function saveText(varname) {
     let text = document.getElementById(varname).value;
 
+    let data = {
+        'name': varname,
+        'content': text
+    }
+
     socket.emit('note-update', {
-        data: {
-            'name': varname,
-            'content': text
-        }
+        data
     });
 }
 
@@ -113,16 +115,11 @@ function setup() {
 }
 
 // Sockets
-socket = io({transports: ['websocket']});
-// socket.on('connect', function() {});
+socket = io();
+socket.on('connect', function() {});
 
 socket.on('broadcast-notes',function(data){
-    
     for (const [name, content] of Object.entries(data)) {
         document.getElementById(name).value = content;
     }
 });
-
-// $.getScript("my_lovely_script.js", function() {
-//     alert("Script loaded but not necessarily executed.");
-//  });
