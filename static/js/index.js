@@ -73,9 +73,10 @@ function saveText(varname) {
         'content': text
     }
 
-    socket.emit('note-update', {
-        data
-    });
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/update_note/' + varname + '/' + text);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify({'content': text}))
 }
 
 function setup() {
@@ -113,13 +114,3 @@ function setup() {
         }
     }
 }
-
-// Sockets
-socket = io();
-socket.on('connect', function() {});
-
-socket.on('broadcast-notes',function(data){
-    for (const [name, content] of Object.entries(data)) {
-        document.getElementById(name).value = content;
-    }
-});

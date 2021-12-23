@@ -17,15 +17,14 @@ all_notes = []
 def index():
     return render_template('index.html')
 
-# @app.route('/update_note/<name>', methods=['POST'])
-# def update_note(name):
-#     content = request.args.get('content')
-#     note_file = open(f'{name}.txt', 'w')
-#     note_file.write(content)
-#     note_file.close()
+@app.route('/update_note/<name>/<content>', methods=['POST'])
+def update_note(name, content):
+    note_file = open(f'{name}.txt', 'w')
+    note_file.write(content)
+    note_file.close()
 
-#     socketio.emit('broadcast-notes', {name: content}, broadcast=True)
-#     return 'Success'
+    socketio.emit('broadcast-notes', {name: content}, broadcast=True)
+    return 'Success'
 
 @app.route('/get_note/<name>')
 def get_note(name):
@@ -38,23 +37,6 @@ def get_note(name):
             return note_file.read()
 
     return ''
-
-@socketio.on('connect')
-def joined():
-    print('NEW CONNECTION')
-    print(request.sid)
-
-@socketio.on('note-update')
-def update_note(data):
-    print(data)
-
-    content = data['data']['content']
-    name = data['data']['name']
-    note_file = open(f'{name}.txt', 'w')
-    note_file.write(content)
-    note_file.close()
-
-    emit('broadcast-notes', {name: content}, broadcast=True) #, include_self=False)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5050, debug=False, use_reloader=False)
