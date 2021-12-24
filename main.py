@@ -17,8 +17,9 @@ all_notes = []
 def index():
     return render_template('index.html')
 
-@app.route('/update_note/<name>/<content>', methods=['POST'])
-def update_note(name, content):
+@app.route('/update_note/<name>', methods=['POST'])
+def update_note(name):
+    content = request.json['content']
     note_file = open(f'{name}.txt', 'w')
     note_file.write(content)
     note_file.close()

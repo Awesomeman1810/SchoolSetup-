@@ -74,7 +74,7 @@ function saveText(varname) {
     }
 
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/update_note/' + varname + '/' + text);
+    xhr.open('POST', '/update_note/' + varname);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({'content': text}))
 }
